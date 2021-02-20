@@ -64,7 +64,11 @@ server.listen(3000, () => {
 
 上面的代码在 1.1 的基础上添加了一个拦截的逻辑，主要是对 url 路径进行拦截，假如是 '.vue' 结尾的 vue 文件，则在 vueMiddleware 中进行处理，假如是以 '__hmrProxy' 后缀结尾的文件，则发送一段 js 给浏览器，这里后面 hmr 部分会详细介绍。
 
+<<<<<<< HEAD
 **1.3 启动 websocket，监听文件变动**
+=======
+**1.3 启动 websocket, 监听文件变动**
+>>>>>>> 76478fd0dbdc1e0d9ad3889ff678db35046c050b
 
 ```javascript
 const fs = require('fs')
