@@ -28,7 +28,7 @@ An extremely fast JavaScript bundler and minifier
 
 极其迅速的 Javascript 捆绑和压缩工具。怎么个迅速法呢？esbuild 还给出了下面一张图：
 
-![image-20210301160705616](C:\Users\86166\AppData\Roaming\Typora\typora-user-images\image-20210301160705616.png)
+![1.png](./images/1.png)
 
 这个图非常明显地体现出了 esbuild 构建 ”神一般的速度“。所以 vite 也是才用的 esbuild 进行预构建。
 
