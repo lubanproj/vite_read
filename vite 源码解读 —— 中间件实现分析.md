@@ -42,13 +42,13 @@ http.createServer(app).listen(3000);
 上面代码是对一个 http 请求的处理，包括对浏览器发出来的请求先压缩、然后再设置 cookie，最后返回一串 "Hello from Connect！" 消息。也就是如下效果
 
 ```javascript
-				   |
+		       |
           	    | 压缩 |
-http 请求	 	      |  
-		  	  | 设置 cookie |
-				   |
+http 请求	 	     |  
+		  | 设置 cookie |
+		       |
 	   | 返回 “Hello from Connect!" |
-				   |
+		       |
 ```
 
 所以中间件的引入主要是为了对请求上下文进行链式处理，那么链式处理是如何实现的呢？这里我们可以去看看  [connect](https://github.com/senchalabs/connect) 组件的源码。
