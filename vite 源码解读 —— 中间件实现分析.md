@@ -55,9 +55,56 @@ http 请求	 	      |
 
 ### 二、connect 如何实现链式调用
 
+[connect](https://github.com/senchalabs/connect) 组件官网介绍为：
 
 
+···
+Connect is a simple framework to glue together various "middleware" to handle requests.
+···
 
+
+其源码实现比较简单，通过分析主要有 handle、call、next 三个函数，关系如下：
+
+```javascript
+    handle() {
+        next()
+    }
+
+    next() {
+
+        var layer = stack[index++];
+
+        // layer.handle 是下一个 handle, 即 next handle
+        call(layer.handle, next)
+    }
+
+    call() {
+        handle();
+    }
+
+```
+
+stack 是一个数组结构，layer.handle 是下一个 handle， 我们来看看相关代码：
+
+```javascript
+  app.stack = [];
+  this.stack.push({ route: path, handle: handle });
+  var layer = stack[index++];
+```
+
+这里我们就可以分析出来了，connect 实现 middleware 的本质是通过一个数组结构，实现了一个拦截器，达到了下面的效果（handle1 、handle2、handle3 串联依次执行）
+
+```
+    handle1
+      |
+    handle2
+      |
+    handle3
+      |
+    finalhandler
+```
+
+finalhandler 是通过引用组件 https://github.com/pillarjs/finalhandler 实现的，本质是一个 http responder
 
 其实 vite 也是使用了中间件的能力，也是通过 [connect](https://github.com/senchalabs/connect) 组件实现的。
 
