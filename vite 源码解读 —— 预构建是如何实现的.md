@@ -479,7 +479,7 @@ export async function scanImports(
 
 这个函数无非就是先使用 glob 扫描出了所有的依赖入口文件，然后对需要排除的路径进行了过滤，最后遍历所有的入口 entries，然后调用 esbuild 进行构建，这里需要关注的是 esbuildScanPlugin 这个 plugin，vite 通过 esbuildScanPlugin 实现了对不同格式的文件的处理。
 
-esbuildScanPlugin 其实是试用了 esbuild 的 plugin 机制，可以参考 [esbuild plugins](https://esbuild.github.io/plugins/#using-plugins)
+esbuildScanPlugin 其实是使用了 esbuild 的 plugin 机制，可以参考 [esbuild plugins](https://esbuild.github.io/plugins/#using-plugins)
 
 ```javascript
 const htmlTypesRE = /\.(html|vue|svelte)$/
@@ -516,7 +516,7 @@ build.onLoad({ filter: htmlTypesRE, namespace: 'html' }, ({ path }) => {
 })
 ```
 
-可以看到，假如 vite 发现是后缀是 html|vue|svelte 类的文件，则使用正则匹配提取文件中的 js 代码返回。接着在后续构建调用的 esbuildDepPlugin 插件中，对这类文件进行过滤即可，如下：
+可以看到，假如 vite 发现是后缀是 html|vue|svelte 类的文件，则使用正则匹配提取文件中的 js 代码返回。接着在后续构建调用的 esbuildDepPlugin 插件中，对提取出的 js 代码进行编译，如下：
 
 ```javascript
 // externalize assets and commonly known non-js file types
